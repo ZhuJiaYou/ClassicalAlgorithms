@@ -5,7 +5,7 @@ class BinaryNode:
         self.right = right
 
 
-def preTraverse(root):
+def pre_traverse(root):
     if root == None:
         return
     print(root.value)
@@ -13,7 +13,23 @@ def preTraverse(root):
     preTraverse(root.right)
 
 
-def postTraverse(root):
+def pre_traverse_no_recur(root):
+    if root == None:
+        return
+    rights = []
+
+    pos = root
+    while((pos != None) or (len(rights) > 0)):
+        if pos == None:
+            pos = rights.pop()
+        else:
+            print(pos.value)
+            rights.append(pos.right)
+            pos = pos.left
+
+
+
+def post_traverse(root):
     if root == None:
         return
     postTraverse(root.left)
@@ -21,8 +37,17 @@ def postTraverse(root):
     print(root.value)
 
 
+def mid_traverse(root):
+    if root == None:
+        return
+    postTraverse(root.left)
+    print(root.value)
+    postTraverse(root.right)
+    
+
+
 if __name__ == '__main__':
     root = BinaryNode('a', BinaryNode('b', BinaryNode('c'), BinaryNode('d')), 
-            BinaryNode('e', BinaryNode('f')))
+            BinaryNode('e', BinaryNode('f', None, BinaryNode('g'))))
 
-    postTraverse(root)
+    pre_traverse_no_recur(root)
