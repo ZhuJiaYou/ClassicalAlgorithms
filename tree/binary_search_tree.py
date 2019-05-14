@@ -13,18 +13,28 @@ class BinarySearchTree:
         self.root = None
         random.shuffle(values)
         for value in values:
-            self.insert(value)
+            self.root = self.insert(self.root, value)
 
-    def insert(root, value):
+    def insert(self, root, value):
         if root == None:
             return BinarySearchNode(value)
         if value < root.value:
-            root.left = insert(root.left, value)
+            root.left = self.insert(root.left, value)
         elif value > root.value:
-            root.right = insert(root.right, value)
+            root.right = self.insert(root.right, value)
         return root
 
+    def mid_traverse(self, root):
+        if root == None:
+            return
+        self.mid_traverse(root.left)
+        print(root.value)
+        self.mid_traverse(root.right)
+
+
 if __name__ == '__main__':
-    nodes = [1, 2, 3, 4, 5]
-    BinarySearchTree(nodes)
+    values = [1, 2, 3, 4, 5]
+    root = BinarySearchTree(values)
+    root.mid_traverse(root.root)
+
     
