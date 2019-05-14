@@ -28,13 +28,15 @@ def pre_traverse_no_recur(root):
             pos = pos.left
 
 
-
 def post_traverse(root):
     if root == None:
         return
     postTraverse(root.left)
     postTraverse(root.right)
     print(root.value)
+
+
+def post_traverse_no_recur(root):
 
 
 def mid_traverse(root):
