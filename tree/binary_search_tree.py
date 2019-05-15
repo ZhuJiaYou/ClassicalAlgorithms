@@ -53,13 +53,32 @@ class BinarySearchTree():
         else:
             return self.find_max(root.right)
 
-
-
-
+    def delete_node(self, root, val):
+        """
+        Delete a node whose value is val in BST 
+        """
+        if self.query(root, val) == False:
+            return
+        if val < root.value:
+            root.left = self.delete_node(root.left, val)
+        elif val > root.value:
+            root.right = self.delete_node(root.right, val)
+        else:
+            if (root.left != None) and (root.right != None):
+                next_val = self.find_min(root.right)
+                root.value = next_val
+                root.right = self.delete_node(root.right, next_val)
+            if (root.left == None) and (root.right == None):
+                root = None
+            elif root.right != None:
+                root = root.right
+            else:
+                root = root.left
+        return root
+            
 
 if __name__ == '__main__':
     values = [1, 2, 3, 4, 5]
     bst = BinarySearchTree(values)
-    print(bst.find_max(bst.root).value)
-
-    
+    bst.delete_node(bst.root, 4)
+    bst.mid_traverse(bst.root)
