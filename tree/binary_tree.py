@@ -31,9 +31,9 @@ def pre_traverse_no_recur(root):
 def post_traverse(root):
     if root == None:
         return
-    postTraverse(root.left)
-    postTraverse(root.right)
-    print(root.value)
+    post_traverse(root.left)
+    post_traverse(root.right)
+    print(root.value, end=" ")
 
 
 def post_traverse_no_recur(root):
@@ -96,22 +96,36 @@ def post_traverse_no_recur2(root):
                 stack.append(pos.left)
                 stack.append(pos.left)
         else:
-            print(pos.value)
+            print(pos.value, end=" ")
 
 
 def mid_traverse(root):
     if root == None:
         return
-    postTraverse(root.left)
-    print(root.value)
-    postTraverse(root.right)
-    
+    mid_traverse(root.left)
+    print(root.value, end=" ")
+    mid_traverse(root.right)
+
+
+def mid_traverse_no_recur(root):
+    if not root:
+        return
+    p = root
+    stack = []
+    while p or stack:
+        if p:
+            stack.append(p)
+            p = p.left
+        else:
+            p = stack.pop()
+            print(p.value, end=" ")
+            p = p.right
 
 
 if __name__ == '__main__':
     root = BinaryNode('a', BinaryNode('b', BinaryNode('c'), BinaryNode('d')), 
             BinaryNode('e', BinaryNode('f', None, BinaryNode('g'))))
 
-    post_traverse_no_recur(root)
-    print("******************************************************")
-    post_traverse_no_recur2(root)
+    mid_traverse(root)
+    print()
+    mid_traverse_no_recur(root)
