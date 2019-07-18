@@ -63,31 +63,35 @@ def merge_sort(arr):
     return merge(merge_sort(arr[:mid]), merge_sort(arr[mid:]))
 
 
+def merge_sort2(arr):
+    def merge(left, right):
+        merged = []
+        while left and right:
+            if left[0] <= right[0]:
+                merged.append(left.pop(0))
+            else:
+                merged.append(right.pop(0))
+        return merged + left + right
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    if len(arr) < 2:
+        return
+    merged = arr
+    n = len(arr)
+    size = 1
+    while size < n:
+        for i in range(0, n-size, size+size):
+            merged[i:min(n, i+size+size)] = merge(merged[i:i+size], merged[i+size:min(n, i+size+size)])
+        size += size
+    # arr = merged
 
 
 
 
 if __name__ == '__main__':
-    a = [2, 8, 5, 7, 3, 0]
+    a = [2, 8, 5, 7, 3, 0, 4]
     # bubble_sort(a)
     # selection_sort(a)
     # insertion_sort(a)
-    print(merge_sort(a))
+    # print(merge_sort(a))
+    merge_sort2(a)
+    print(a)
