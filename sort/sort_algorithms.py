@@ -85,6 +85,33 @@ def merge_sort2(arr):
     # arr = merged
 
 
+# unstable
+# time avg: O(nlogn), time worst: O(n2), time best: O(nlogn)
+# space: O(logn)
+def quick_sort(arr, low=None, high=None):
+    def partition(a, low, high):
+        pivot_val = a[low]
+        while low < high:
+            while low < high and a[high] >= pivot_val:
+                high -= 1
+            a[low] = a[high]
+            while low < high and a[low] <= pivot_val:
+                low += 1
+            a[high] = a[low]
+        a[low] = pivot_val
+        return low
+
+    l_ = 0 if low is None else low
+    h = len(arr) - 1 if high is None else high 
+    if l_ < h:
+        pivot_pos = partition(arr, l_, h)
+        quick_sort(arr, l_, pivot_pos-1)
+        quick_sort(arr, pivot_pos+1, h)
+
+
+
+
+
 
 
 if __name__ == '__main__':
@@ -93,5 +120,6 @@ if __name__ == '__main__':
     # selection_sort(a)
     # insertion_sort(a)
     # print(merge_sort(a))
-    merge_sort2(a)
+    # merge_sort2(a)
+    quick_sort(a)
     print(a)
