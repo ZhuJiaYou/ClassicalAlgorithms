@@ -109,6 +109,29 @@ def quick_sort(arr, low=None, high=None):
         quick_sort(arr, pivot_pos+1, h)
 
 
+# unstable
+# time avg: O(nlogn), time worst: O(nlogn), time best: O(nlogn)
+# space: O(1)
+def heap_sort(arr):
+    def siftdown(a, adjust, begin, end):
+        i, j = begin, begin * 2 + 1  # j is the LeftNode of i, NOTICE the start index is 0
+        while j < end:
+            if j + 1 < end and a[j+1] > a[j]:
+                j += 1
+            if adjust > a[j]:
+                break
+            a[i] = a[j]
+            i, j = j, j * 2 + 1
+        a[i] = adjust
+
+    end = len(arr)
+    for i in range(end//2-1, -1, -1):
+        siftdown(arr, a[i], i, end)
+    for i in range(end-1, 0, -1):
+        # print(arr)
+        adjust = arr[i]
+        arr[i] = arr[0]
+        siftdown(a, adjust, 0, i)
 
 
 
@@ -121,5 +144,6 @@ if __name__ == '__main__':
     # insertion_sort(a)
     # print(merge_sort(a))
     # merge_sort2(a)
-    quick_sort(a)
+    # quick_sort(a)
+    heap_sort(a)
     print(a)
