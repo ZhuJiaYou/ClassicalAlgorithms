@@ -134,16 +134,32 @@ def heap_sort(arr):
         siftdown(a, adjust, 0, i)
 
 
+# stable
+# time avg: O(n+k), time worst: O(n+k), time best: O(n+k), k is the range of input data
+# space: O(k)
+# input data must be integers with a definite range
+def counting_sort(arr, max_val):
+    bucket = [0] * (max_val + 1)
+    for i in arr:
+        bucket[i] += 1
+    sorted_i = 0
+    for i in range(len(bucket)):
+        while bucket[i] > 0:
+            arr[sorted_i] = i
+            sorted_i += 1
+            bucket[i] -= 1
+
 
 
 
 if __name__ == '__main__':
-    a = [2, 8, 5, 7, 3, 0, 4]
+    a = [2, 8, 5, 7, 2, 3, 0, 4]
     # bubble_sort(a)
     # selection_sort(a)
     # insertion_sort(a)
     # print(merge_sort(a))
     # merge_sort2(a)
     # quick_sort(a)
-    heap_sort(a)
+    # heap_sort(a)
+    counting_sort(a, 9)
     print(a)
